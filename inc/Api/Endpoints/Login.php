@@ -6,7 +6,7 @@ use WP_Error;
 use \Inc\Base\BaseController;
 
 class Login extends BaseController {
-// API custom endpoints for WP-REST API
+    // API custom endpoints for WP-REST API
     public function login() {
 
         $output = array();
@@ -58,7 +58,7 @@ class Login extends BaseController {
             ]
         ];
 
-        // $user = json_encode($user);
+        $user = json_encode($user);
 
         return $user;
     }

@@ -21,8 +21,6 @@ class BaseController
             get_site_url(),
             get_option( 'wc_client' ),
             get_option( 'wc_secret' ),
-            // 'ck_02e26239e8f936ccfa429525b8e3a6b258f4e8bf', 
-            // 'cs_86322213b6c22a54ee06875c7b806db7395e865f',
             [
                 'version' => 'wc/v3',
             ]
