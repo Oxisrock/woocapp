@@ -1,0 +1,17 @@
+{
+    "name": "desarrollo1/woocapp",
+    "description": "integration app woocommerce",
+    "type": "project",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Francisco Aular",
+            "email": "franciscoaular18@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    }
+}
