@@ -19,5 +19,9 @@ class Deactivate {
        
         // Creamos la tabla
         $wpdb->query($sql);
+
+        delete_option('wc_client');
+
+        delete_option('wc_secret');
     }
 }

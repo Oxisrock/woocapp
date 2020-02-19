@@ -14,7 +14,7 @@ class SettingsApi {
 	public $fields = [];
 
     public $endpoints = [];
-
+    
     public function register() {
         if (! empty($this->admin_pages)) :
             add_action('admin_menu', [$this, 'addAdminMenu']);
@@ -132,7 +132,7 @@ class SettingsApi {
                 [
                     'methods'  => $endpoint['method'],
                     'callback' => $endpoint['callback'],
-                    // 'args' => $endpoint['args']
+        
                 ]
             );
         endforeach;

@@ -2,7 +2,10 @@
 
 namespace Inc\Api\Endpoints;
 use WP_Error;
-class Login {
+
+use \Inc\Base\BaseController;
+
+class Login extends BaseController {
 // API custom endpoints for WP-REST API
     public function login() {
 
@@ -38,19 +41,31 @@ class Login {
     }
 
     public function formatterUser($user) {
-        $client = new WC_Customer($user->ID);
+        $user_id =  $user->ID;
+        
+        $customer = $this->get_customer($user_id);
+
         $user = [
-            'ID' => $user->ID,
+            'ID' => $user_id,
             'username' => $user->data->user_login,
             'nicename' => $user->data->user_nicename,
             'email' => $user->data->user_email,
             'display_name' => $user->data->display_name,
             'user_registered' => $user->data->user_registered,
-            'client' => $client
+            'customer' => [
+                'billing' => $customer->billing,
+                'shipping' => $customer->shipping
+            ]
         ];
 
-        $user = json_encode($user);
-        
+        // $user = json_encode($user);
+
         return $user;
+    }
+
+    public function get_customer($user_id) {
+        $customer = $this->woocommerce->get('customers/'.$user_id);
+
+        return $customer;
     }
 }

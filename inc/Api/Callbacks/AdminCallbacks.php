@@ -30,16 +30,19 @@ class AdminCallbacks extends BaseController
 		echo 'Area de configuración de plugin woocapp integración';
 	}
 
-	public function woocappTextExample()
+	public function woocappWcClient()
 	{
-		$value = esc_attr( get_option( 'text_example' ) );
-		echo '<input type="text" class="regular-text" name="text_example" value="' . $value . '" placeholder="Write Something Here!">';
-    }
+		$value = esc_attr( get_option( 'wc_client' ) );
+		$disable = ($value) ? 'disabled' : '';
+		echo '<input type="text" class="regular-text" name="wc_client" value="' . $value . '" placeholder="Write wc client"'.$disable.'>';
+		
+	}
     
-    public function woocappFirstName()
+    public function woocappWcSecret()
 	{
-		$value = esc_attr( get_option( 'first_name' ) );
-		echo '<input type="text" class="regular-text" name="first_name" value="' . $value . '" placeholder="Write your First Name">';
+		$value = esc_attr( get_option( 'wc_secret' ) );
+		$disable = ($value) ? 'disabled' : '';
+		echo '<input type="text" class="regular-text" name="wc_secret" value="' . $value . '" placeholder="Write wc secret"'.$disable.'>';
 	}
 
 	public function woocappLoginEnpoint()

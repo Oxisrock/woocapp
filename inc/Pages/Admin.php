@@ -74,18 +74,18 @@ class Admin extends BaseController
             
         ];
     }
-
+    // mosca con esta funcion y los option name por cada campo
     public function setSettings() {
         
         $args = [
 			[
 				'option_group' => 'woocapp_options_group',
-				'option_name' => 'text_example',
+				'option_name' => 'wc_client',
 				'callback' => [ $this->callbacks, 'woocappOptionsGroup' ]
             ],
 			[
 				'option_group' => 'woocapp_options_group',
-				'option_name' => 'first_name'
+				'option_name' => 'wc_secret'
             ]
         ];
 
@@ -108,24 +108,24 @@ class Admin extends BaseController
     public function setFields() {
         $args = [
                     [
-                        'id' => 'text_example',
-                        'title' => 'Text Example',
-                        'callback' => [ $this->callbacks, 'woocappTextExample' ],
+                        'id' => 'wc_client',
+                        'title' => 'Wc client',
+                        'callback' => [ $this->callbacks, 'woocappWcClient' ],
                         'page' => 'woocapp',
                         'section' => 'woocapp_admin_index',
                         'args' => [
-                            'label_for' => 'text_example',
+                            'label_for' => 'wc_client',
                             'class' => 'example-class'
                         ]
                     ],
                     [
-                        'id' => 'first_name',
-                        'title' => 'First Name',
-                        'callback' => [ $this->callbacks, 'woocappFirstName' ],
+                        'id' => 'wc_secret',
+                        'title' => 'WC Secrect',
+                        'callback' => [ $this->callbacks, 'woocappWcSecret' ],
                         'page' => 'woocapp',
                         'section' => 'woocapp_admin_index',
                         'args' => [
-                            'label_for' => 'first_name',
+                            'label_for' => 'wc_secret',
                             'class' => 'example-class'
                         ]
                     ]
