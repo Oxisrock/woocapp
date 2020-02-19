@@ -3,7 +3,9 @@
 namespace Inc\Pages;
 
 use \Inc\Base\BaseController;
+
 use \Inc\Api\SettingsApi;
+
 use \Inc\Api\Callbacks\AdminCallbacks;
 
 class Admin extends BaseController
@@ -27,8 +29,13 @@ class Admin extends BaseController
         $this->setSubPages();
         
         $this->setSettings();
-		$this->setSections();
-		$this->setFields();
+        
+        $this->setSections();
+        
+        $this->setFields();
+
+        $this->setEndpoints();
+
 
         $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
     }
@@ -64,6 +71,7 @@ class Admin extends BaseController
                 'menu_slug' =>  'woocapp_taxonomy', 
                 'callback' => [$this->callbacks, 'taxonomyWoocapp'],
             ],
+            
         ];
     }
 
@@ -124,6 +132,19 @@ class Admin extends BaseController
                 ];
 
 		$this->settings->setFields( $args );
+    }
+
+    public function setEndpoints() {
+        $args = [
+                    [
+                        'route' => '/login/',
+                        'method' => 'GET',
+                        'callback' => [ $this->callbacks, 'woocappLoginEnpointPost' ],
+                    ]
+                  
+                ];
+
+		$this->settings->setEndpoints( $args );
     }
 
 }

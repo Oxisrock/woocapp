@@ -3,6 +3,9 @@ namespace Inc\Api\Callbacks;
 
 use \Inc\Base\BaseController;
 
+use \Inc\Api\Endpoints\Login;
+
+
 class AdminCallbacks extends BaseController
 {
     public function adminDashboard() {
@@ -37,5 +40,18 @@ class AdminCallbacks extends BaseController
 	{
 		$value = esc_attr( get_option( 'first_name' ) );
 		echo '<input type="text" class="regular-text" name="first_name" value="' . $value . '" placeholder="Write your First Name">';
+	}
+
+	public function woocappLoginEnpoint()
+	{
+		$login = new Login;
+		
+		return $login->login();
+	}
+
+	public function woocappLoginEnpointPost($POST)
+	{
+		$login = new Login;
+		return $login->loginPost($POST);
 	}
 }

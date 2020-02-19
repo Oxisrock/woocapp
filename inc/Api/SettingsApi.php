@@ -13,6 +13,7 @@ class SettingsApi {
 
 	public $fields = [];
 
+    public $endpoints = [];
 
     public function register() {
         if (! empty($this->admin_pages)) :
@@ -21,7 +22,12 @@ class SettingsApi {
 
         if ( !empty($this->settings) ) :
 			add_action( 'admin_init', [$this, 'registerCustomFields' ] );
-		endif;
+        endif;
+        
+        if ( !empty($this->endpoints) ) :
+			add_action( 'rest_api_init', [$this, 'registerApiEnpoints' ] );
+        endif;
+        
     }
 
     public function addPages(array $pages) {
@@ -91,6 +97,13 @@ class SettingsApi {
 		$this->fields = $fields;
 
 		return $this;
+    }
+    
+    public function setEndpoints( array $endpoints )
+	{
+		$this->endpoints = $endpoints;
+
+		return $this;
 	}
 
     public function registerCustomFields() {
@@ -108,6 +121,20 @@ class SettingsApi {
 		// add settings field
 		foreach ( $this->fields as $field ) :
 			add_settings_field( $field['id'], $field['title'], ( isset( $field['callback'] ) ? $field['callback'] : '' ), $field['page'], $field['section'], ( isset( $field['args'] ) ? $field['args'] : '' ) );
+        endforeach;
+    }
+
+    public function registerApiEnpoints() {
+
+        foreach ( $this->endpoints as $endpoint ) :
+			register_rest_route(
+                'woocapp', $endpoint['route'],
+                [
+                    'methods'  => $endpoint['method'],
+                    'callback' => $endpoint['callback'],
+                    // 'args' => $endpoint['args']
+                ]
+            );
         endforeach;
     }
 }
