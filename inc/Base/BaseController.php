@@ -28,5 +28,6 @@ class BaseController
 
         return $woocommerce;
     }
+
 }
 

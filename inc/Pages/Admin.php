@@ -138,9 +138,14 @@ class Admin extends BaseController
         $args = [
                     [
                         'route' => '/login/',
-                        'method' => 'GET',
+                        'method' => 'POST',
                         'callback' => [ $this->callbacks, 'woocappLoginEnpointPost' ],
-                    ]
+                    ],
+                    [
+                        'route' => '/brands/',
+                        'method' => 'GET',
+                        'callback' => [ $this->callbacks, 'woocappBrandsEnpoint' ],
+                    ],
                   
                 ];
 

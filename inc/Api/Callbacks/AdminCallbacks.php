@@ -5,6 +5,8 @@ use \Inc\Base\BaseController;
 
 use \Inc\Api\Endpoints\Login;
 
+use \Inc\Api\Endpoints\Brands;
+
 
 class AdminCallbacks extends BaseController
 {
@@ -56,5 +58,11 @@ class AdminCallbacks extends BaseController
 	{
 		$login = new Login;
 		return $login->loginPost($POST);
+	}
+
+	public function woocappBrandsEnpoint()
+	{
+		$brands = new Brands;
+		return $brands->listBrands();
 	}
 }
