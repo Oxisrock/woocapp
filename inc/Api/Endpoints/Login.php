@@ -6,15 +6,6 @@ use WP_Error;
 use \Inc\Base\BaseController;
 
 class Login extends BaseController {
-    // API custom endpoints for WP-REST API
-    public function login() {
-
-        $output = array();
-        $output = 'funciona enpoint';
-        // Your logic goes here.
-        return $output;
-
-    }
 
     public function loginPost($request) {
 
@@ -44,14 +35,14 @@ class Login extends BaseController {
         $user_id =  $user->ID;
         
         $customer = $this->get_customer($user_id);
-
         $user = [
             'ID' => $user_id,
             'username' => $user->data->user_login,
-            'nicename' => $user->data->user_nicename,
+            'nickname' => $user->data->user_nicename,
             'email' => $user->data->user_email,
             'display_name' => $user->data->display_name,
             'user_registered' => $user->data->user_registered,
+            'user_activation_key' =>  $user->data->user_activation_key,
             'customer' => [
                 'billing' => $customer->billing,
                 'shipping' => $customer->shipping

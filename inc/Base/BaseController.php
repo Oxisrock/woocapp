@@ -29,5 +29,31 @@ class BaseController
         return $woocommerce;
     }
 
+    
+
+    public function my_acf_settings_url( $url ) {
+
+        return $this->plugin_url.'includes/acf/';
+    }
+    
+    // (Optional) Hide the ACF admin menu item.
+    public function my_acf_settings_show_admin( $show_admin ) {
+        return false;
+    }
+ 
+    public function p2c_acf_json_save_point( $path ) {
+        $path = $this->plugin_path . 'includes/acf-json';
+        return $path;
+    }
+
+    public function p2c_acf_json_load_point( $paths ) {
+        unset($paths[0]);
+        $paths[] = $this->plugin_path . 'includes/acf-json';
+
+        return $paths;
+    }
+
+    
+
 }
 

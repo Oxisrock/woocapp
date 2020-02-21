@@ -36,6 +36,7 @@ class Admin extends BaseController
 
         $this->setEndpoints();
 
+        $this->setTaxonomies();
 
         $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
     }
@@ -150,6 +151,42 @@ class Admin extends BaseController
                 ];
 
 		$this->settings->setEndpoints( $args );
+    }
+
+    public function setTaxonomies() {
+
+        $args = [
+                    [
+                        'base' => [
+                                'slug' => 'marca',
+                                'cpt' => ['product']
+                        ],
+                        'args' => [
+                            'label' => 'marcas',
+                            'labels' => [
+                                'label' => [
+                                    'name' => 'Marcas',
+                                    'singular_name' => 'Marca'
+                                ],
+                            ],
+                            'public' => true,
+                            'publicly_queryable' => true,
+                            'hierarchical' => true,
+                            'show_ui' => true,
+                            'show_in_menu' => true,
+                            'show_in_nav_menus' => true,
+                            'query_var' => true,
+                            'rewrite' => [ 'slug' => 'marca', 'with_front' => true, ],
+                            'show_admin_column' => false,
+                            'show_in_rest' => true,
+                            'rest_base' => 'marcas',
+                            'rest_controller_class' => 'WP_REST_Terms_Controller',
+                            'show_in_quick_edit' => false,
+                            ]
+                        ],
+                    ];
+
+		$this->settings->setTaxonomies( $args );
     }
 
 }

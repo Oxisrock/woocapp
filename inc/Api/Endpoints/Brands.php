@@ -29,7 +29,7 @@ class Brands extends BaseController {
             ];
         endforeach;
 
-        return $output;
+        return json_encode($output);
     }
 
     public function productBrands($request) {
