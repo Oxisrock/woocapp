@@ -51,7 +51,7 @@ class Login extends BaseController {
 
         $user = json_encode($user);
         
-        return $user;
+        echo $user;
     }
 
     public function get_customer($user_id) {
