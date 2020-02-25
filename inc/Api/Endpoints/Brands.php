@@ -6,6 +6,8 @@ use WP_Error;
 
 use \Inc\Base\BaseController;
 
+use WP_REST_Response;
+
 class Brands extends BaseController {
     // API custom endpoints for WP-REST API
     public function listBrands() {
@@ -29,7 +31,12 @@ class Brands extends BaseController {
             ];
         endforeach;
 
-        echo json_encode($output);
+        $brands = json_encode($output);
+
+        $response = new WP_REST_Response($brands);
+        $response->set_status(200);
+    
+        return $response;
     }
 
     public function productBrands($request) {

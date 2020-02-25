@@ -5,6 +5,9 @@ use WP_Error;
 
 use \Inc\Base\BaseController;
 
+use WP_REST_Response;
+
+
 class Login extends BaseController {
 
     public function loginPost($request) {
@@ -50,8 +53,10 @@ class Login extends BaseController {
         ];
 
         $user = json_encode($user);
-        
-        echo $user;
+        $response = new WP_REST_Response($user);
+        $response->set_status(200);
+    
+        return $response;
     }
 
     public function get_customer($user_id) {
