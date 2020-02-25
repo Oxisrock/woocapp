@@ -20,7 +20,7 @@ class Login extends BaseController {
         
         $creds['remember'] = true;
         
-        $user = wp_signon( $creds, false );
+        $user = wp_get_current_user();
     
         if ( is_wp_error($user) ) :
 
@@ -29,8 +29,12 @@ class Login extends BaseController {
         endif;
 
         $userJson = $this->formatterUser($user);
-
-        return $userJson;
+        
+        $response = new WP_REST_Response($userJson);
+        
+        $response->set_status(200);
+        
+        return rest_ensure_response($response);
     
     }
 
@@ -51,17 +55,20 @@ class Login extends BaseController {
                 'shipping' => $customer->shipping
             ]
         ];
-
-        $user = json_encode($user);
-        $response = new WP_REST_Response($user);
-        $response->set_status(200);
-    
-        return $response;
+       
+        return $user;
     }
 
     public function get_customer($user_id) {
         $customer = $this->woocommerce->get('customers/'.$user_id);
 
         return $customer;
+    }
+
+    public function checkloggedinuser()
+    {
+    $currentuserid_fromjwt = get_current_user_id();
+    print_r($currentuserid_fromjwt);
+    exit;
     }
 }

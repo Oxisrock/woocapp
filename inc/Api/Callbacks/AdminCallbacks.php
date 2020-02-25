@@ -51,7 +51,7 @@ class AdminCallbacks extends BaseController
 	{
 		$login = new Login;
 		
-		return $login->login();
+		return $login->checkloggedinuser();
 	}
 
 	public function woocappLoginEnpointPost($POST)

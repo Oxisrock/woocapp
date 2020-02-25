@@ -14,6 +14,9 @@
 if (! defined('ABSPATH')) {
    die;
 }
+define('JWT_AUTH_SECRET_KEY', '+rOXow0lM}4{Xq|yJ[LEe}4F%8>]L!ganAeYh]s yWn;3EXj4wS)?uI+eX_  ~xy');
+define('JWT_AUTH_CORS_ENABLE', true);
+
 // require once the composer Autoload
 if( file_exists( dirname(__FILE__).'/vendor/autoload.php')) {
     require_once dirname(__FILE__).'/vendor/autoload.php';
