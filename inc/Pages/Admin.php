@@ -184,6 +184,7 @@ class Admin extends BaseController
                             'show_in_quick_edit' => false,
                             ]
                         ],
+                        
                     ];
 
 		$this->settings->setTaxonomies( $args );

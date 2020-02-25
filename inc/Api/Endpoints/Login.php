@@ -50,7 +50,7 @@ class Login extends BaseController {
         ];
 
         $user = json_encode($user);
-
+        
         return $user;
     }
 

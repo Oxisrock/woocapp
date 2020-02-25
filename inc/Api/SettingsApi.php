@@ -32,9 +32,11 @@ class SettingsApi {
         if ( !empty($this->endpoints) ) :
 			add_action( 'rest_api_init', [$this, 'registerApiEnpoints' ] );
         endif;
+        
         if ( !empty($this->taxonomies) ) :
             add_action( 'init', [$this, 'registerTaxonomy' ] );
         endif;
+        
         $this->load_acf();
 
        
