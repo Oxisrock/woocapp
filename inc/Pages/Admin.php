@@ -138,6 +138,11 @@ class Admin extends BaseController
     public function setEndpoints() {
         $args = [
                     [
+                        'route' => '/loggedinuser/',
+                        'method' => 'GET',
+                        'callback' => [ $this->callbacks, 'woocappLoginEnpoint' ],
+                    ],        
+                    [
                         'route' => '/customer/',
                         'method' => 'POST',
                         'callback' => [ $this->callbacks, 'woocappLoginEnpointPost' ],
@@ -148,10 +153,11 @@ class Admin extends BaseController
                         'callback' => [ $this->callbacks, 'woocappBrandsEnpoint' ],
                     ],
                     [
-                        'route' => '/loggedinuser/',
+                        'route' => '/brands/(?P<brand_id>\d+)/products',
                         'method' => 'GET',
-                        'callback' => [ $this->callbacks, 'woocappLoginEnpoint' ],
+                        'callback' => [ $this->callbacks, 'woocappBrandsProductsEnpoint' ],
                     ],
+                   
                   
                 ];
 

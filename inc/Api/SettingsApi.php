@@ -151,7 +151,6 @@ class SettingsApi {
                 [
                     'methods'  => $endpoint['method'],
                     'callback' => $endpoint['callback'],
-        
                 ]
             );
         endforeach;
