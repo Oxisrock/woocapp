@@ -38,7 +38,7 @@ class BaseController
     
     // (Optional) Hide the ACF admin menu item.
     public function my_acf_settings_show_admin( $show_admin ) {
-        return false;
+        return true;
     }
  
     public function p2c_acf_json_save_point( $path ) {
