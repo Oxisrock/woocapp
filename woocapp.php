@@ -14,7 +14,9 @@
 if (! defined('ABSPATH')) {
    die;
 }
-define('JWT_AUTH_SECRET_KEY', '+rOXow0lM}4{Xq|yJ[LEe}4F%8>]L!ganAeYh]s yWn;3EXj4wS)?uI+eX_  ~xy');
+
+define('JWT_AUTH_SECRET_KEY', 'i+NnG wT]Lfy|(ANuu2KnM$z)kZxSK$S7_+huP)7P?FRK0m<$+?+WE6s0+MYX&Tg');
+
 define('JWT_AUTH_CORS_ENABLE', true);
 
 // require once the composer Autoload
