@@ -61,7 +61,7 @@ class Brands extends BaseController {
             'post_type'             => 'product',
             'post_status'           => 'publish',
             'ignore_sticky_posts'   => 1,
-            'posts_per_page'        => 2, // Limit: two products
+            'posts_per_page'        => -1, // Limit: two products
             'post__not_in'          =>[ get_the_id() ], // Excluding current product
             'tax_query'             =>[[
                 'taxonomy'      => $taxonomy,
@@ -84,6 +84,7 @@ class Brands extends BaseController {
                 $products[] = [
                     'id' => $product->get_id(),
                     'name' => $product->get_name(),
+                    'sku' => $product->get_slug(),
                     'description' => $product->get_description(),
                     'short_description' => $product->get_short_description(),
                     'get_date_created' => $product->get_date_created(),
@@ -98,6 +99,7 @@ class Brands extends BaseController {
                     'stock_quantity' =>    $product->get_stock_quantity(),
                     'stock_status' => $product->get_stock_status(),
                     ],
+                    'variations' => $this->getVariationsProducts($product),
                     'dimensions' => [
                       'weight' => $product->get_weight(),
                       'length' => $product->get_length(),
@@ -133,6 +135,7 @@ class Brands extends BaseController {
                     ]
 
                 ];
+                
             endwhile;
             wp_reset_postdata();
         endif;
@@ -141,7 +144,7 @@ class Brands extends BaseController {
             return new WP_Error( '404', 'brands not have products', '' );
         endif;
         
-        $products = json_encode($products);
+        // $products = json_encode($products);
         
         $response = new WP_REST_Response($products);
         
@@ -157,5 +160,41 @@ class Brands extends BaseController {
         endforeach;
 
         return $cats;
+    }
+
+    public function getVariationsProducts($product) {
+        $variations = [];
+        if($product->is_type('variable')) :
+            foreach($product->get_available_variations() as $variation ) :
+                // Variation ID
+                $variation_id = $variation['variation_id'];
+                
+                // Attributes
+                $attributes = array();
+                foreach( $variation['attributes'] as $key => $value ) :
+                    $taxonomy = str_replace('attribute_', '', $key );
+                    $taxonomy_label = get_taxonomy( $taxonomy )->labels->singular_name;
+                    $term_name = get_term_by( 'slug', $value, $taxonomy )->name;
+                    $attributes[] = $taxonomy_label.': '.$term_name;
+                endforeach;
+                
+                // Prices
+                $active_price = floatval($variation['display_price']); // Active price
+                $regular_price = floatval($variation['display_regular_price']); // Regular Price
+                if( $active_price != $regular_price ) :
+                    $sale_price = $active_price; // Sale Price
+                endif;
+                $variations[] = [
+                    'id' => $variation_id,
+                    'attributes' => $attributes,
+                    'image' => $variation['image'],
+                    'price' => [
+                        'active_price' => $active_price,
+                        'regular_price' => $regular_price,
+                    ]
+                ];
+            endforeach;
+            return $variations;
+        endif;
     }
 }

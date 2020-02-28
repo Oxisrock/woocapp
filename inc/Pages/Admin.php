@@ -140,24 +140,30 @@ class Admin extends BaseController
                     [
                         'route' => '/loggedinuser/',
                         'method' => 'GET',
-                        'callback' => [ $this->callbacks, 'woocappLoginEnpoint' ],
-                    ],        
+                        'callback' => [ $this->callbacks, 'woocappLoginEndpoint' ],
+                    ],       
+                    //customer 
                     [
                         'route' => '/customer/',
-                        'method' => 'POST',
-                        'callback' => [ $this->callbacks, 'woocappLoginEnpointPost' ],
+                        'method' => 'GET',
+                        'callback' => [ $this->callbacks, 'woocappLoginEndpointPost' ],
                     ],
+                    // Brands
                     [
                         'route' => '/brands/',
                         'method' => 'GET',
-                        'callback' => [ $this->callbacks, 'woocappBrandsEnpoint' ],
+                        'callback' => [ $this->callbacks, 'woocappBrandsEndpoint' ],
                     ],
                     [
                         'route' => '/brands/(?P<brand_id>\d+)/products',
                         'method' => 'GET',
-                        'callback' => [ $this->callbacks, 'woocappBrandsProductsEnpoint' ],
+                        'callback' => [ $this->callbacks, 'woocappBrandsProductsEndpoint' ],
                     ],
-                   
+                    [
+                        'route' => '/orders/',
+                        'method' => 'POST',
+                        'callback' => [ $this->callbacks, 'woocappOrderEndpoint' ],
+                    ],
                   
                 ];
 

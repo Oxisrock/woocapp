@@ -7,6 +7,8 @@ use \Inc\Api\Endpoints\Login;
 
 use \Inc\Api\Endpoints\Brands;
 
+use \Inc\Api\Endpoints\Orders;
+
 
 class AdminCallbacks extends BaseController
 {
@@ -46,23 +48,33 @@ class AdminCallbacks extends BaseController
 		$disable = ($value) ? 'disabled' : '';
 		echo '<input type="text" class="regular-text" name="wc_secret" value="' . $value . '" placeholder="Write wc secret"'.$disable.'>';
 	}
-
-	public function woocappLoginEnpoint()
+	// LOGIN
+	public function woocappLoginEndpoint()
 	{
 		$login = new Login;
 		
 		return $login->checkloggedinuser();
 	}
-
-	public function woocappBrandsEnpoint()
+	// Brands
+	public function woocappBrandsEndpoint()
 	{
 		$brands = new Brands;
+		
 		return $brands->listBrands();
 	}
 
-	public function woocappBrandsProductsEnpoint($request)
+	public function woocappBrandsProductsEndpoint($request)
 	{
 		$brands = new Brands;
+		
 		return $brands->productsBrands($request);
+	}
+	// Orders
+
+	public function woocappOrderEndpoint($data) {
+		
+		$order = new Orders;
+
+		return $order->createOrder($data);
 	}
 }
