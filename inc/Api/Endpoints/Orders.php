@@ -32,12 +32,13 @@ class Orders extends BaseController {
         if (empty($line_items)) :
             return new WP_Error( '404', 'error not products in cart', '' );
         endif;
-
+        var_dump($client);
+        exit;
         $order = [
             'payment_method' => 'bacs',
             'payment_method_title' => 'Direct Bank Transfer',
             'set_paid' => true,
-            'customer_id' => 2,
+            'customer_id' => $client->id,
             'billing' => $client->billing,
             'shipping' => $client->shipping,
             'line_items' => $line_items,
