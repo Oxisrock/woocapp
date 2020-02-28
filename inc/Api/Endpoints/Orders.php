@@ -12,33 +12,20 @@ use WP_REST_Request;
 
 use WP_Query;
 
+use Automattic\WooCommerce\HttpClient\HttpClientException;
+
 class Orders extends BaseController {
     // API custom endpoints for WP-REST API
     public function createOrder($data) {
 
         $user_id = get_current_user_id();
-        
+
         if (empty($user_id)) :
             return new WP_Error( '401', 'error login user', '' );
         endif;
 
         $client = $this->woocommerce->get('customers/'.$user_id);
 
-        // $line_items = [
-        //     [
-        //         'product_id' => 4415,
-        //         'quantity' => 2
-        //     ],
-        //     [
-        //         'product_id' => 4406,
-        //         'quantity' => 1
-        //     ],
-        // [
-        //     'product_id' => 4415,
-        //     'variation_id' => 4477,
-        //     'quantity' => 10
-        // ]
-        // ];
         
         $line_items = json_decode($data['cart_products']);
         
@@ -55,19 +42,21 @@ class Orders extends BaseController {
             'shipping' => $client->shipping,
             'line_items' => $line_items,
         ];
+        var_dump($client);
+        var_dump($order);
         
-        $order = $this->woocommerce->post('orders', $order);
+        // $order = $this->woocommerce->post('orders', $order);
 
-        if (empty($order)) :
-            return new WP_Error( '404', 'error to create order', '' );
-        endif;
+        // if (empty($order)) :
+        //     return new WP_Error( '404', 'error to create order', '' );
+        // endif;
 
-        $order = json_encode($order);
+        // $order = json_encode($order);
 
-        $response = new WP_REST_Response($order);
+        // $response = new WP_REST_Response($order);
 
-        $response->set_status(200);
+        // $response->set_status(200);
     
-        return $response;
+        // return $response;
     }
 }
