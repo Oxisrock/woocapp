@@ -22,8 +22,8 @@ class BaseController
             get_option( 'wc_client' ),
             get_option( 'wc_secret' ),
             [
-                'wp_api' => true,
                 'version' => 'wc/v3',
+                'wp_api' => true, 
                 'query_string_auth' => true // Force Basic Authentication as query string true and using under HTTPS
             ]
         );
