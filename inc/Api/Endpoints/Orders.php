@@ -42,21 +42,19 @@ class Orders extends BaseController {
             'shipping' => $client->shipping,
             'line_items' => $line_items,
         ];
-        var_dump($client);
-        var_dump($order);
         
-        // $order = $this->woocommerce->post('orders', $order);
+         $order = $this->woocommerce->post('orders', $order);
+        
+        if (empty($order)) :
+            return new WP_Error( '404', 'error to create order', '' );
+        endif;
 
-        // if (empty($order)) :
-        //     return new WP_Error( '404', 'error to create order', '' );
-        // endif;
+        $order = json_encode($order);
 
-        // $order = json_encode($order);
+        $response = new WP_REST_Response($order);
 
-        // $response = new WP_REST_Response($order);
-
-        // $response->set_status(200);
+        $response->set_status(200);
     
-        // return $response;
+        return $response;
     }
 }
