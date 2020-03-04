@@ -9,6 +9,8 @@ use \Inc\Api\Endpoints\Brands;
 
 use \Inc\Api\Endpoints\Orders;
 
+use \Inc\Api\Endpoints\Offers;
+
 
 class AdminCallbacks extends BaseController
 {
@@ -76,5 +78,18 @@ class AdminCallbacks extends BaseController
 		$order = new Orders;
 
 		return $order->createOrder($data);
+	}
+
+	public function woocappOffertsEndpoint() {
+		
+		$Offers = new Offers;
+
+		return $Offers->getOffers();
+	}
+	public function woocappOffertsProductsEndpoint($request) {
+		
+		$Offers = new Offers;
+
+		return $Offers->getProductOffer($request);
 	}
 }
