@@ -19,6 +19,8 @@ class SettingsApi {
     public $endpoints = [];
 
     public $taxonomies = [];
+
+    public $customPostType = [];
     
     public function register() {
         if (! empty($this->admin_pages)) :
@@ -35,6 +37,10 @@ class SettingsApi {
         
         if ( !empty($this->taxonomies) ) :
             add_action( 'init', [$this, 'registerTaxonomy' ] );
+        endif;
+
+        if ( !empty($this->customPostType) ) :
+            add_action( 'init', [$this, 'registerCustomPostType' ] );
         endif;
         
         $this->load_acf();
@@ -123,6 +129,13 @@ class SettingsApi {
 		$this->taxonomies = $taxonomies;
 
 		return $this;
+    }
+    
+    public function setCustomPostType( array $customPostType )
+	{
+		$this->customPostType = $customPostType;
+
+		return $this;
 	}
 
     public function registerCustomFields() {
@@ -160,6 +173,14 @@ class SettingsApi {
 
         foreach ( $this->taxonomies as $taxonomy ) :
             register_taxonomy(  $taxonomy['base']['slug'], $taxonomy['base']['cpt'], $taxonomy['args'] );
+        endforeach;
+    }
+
+
+    public function registerCustomPostType() {
+
+        foreach ( $this->customPostType as $customPostType ) :
+            register_post_type( $customPostType['base'],$customPostType['args'] );
         endforeach;
     }
 

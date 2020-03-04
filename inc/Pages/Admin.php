@@ -38,6 +38,8 @@ class Admin extends BaseController
 
         $this->setTaxonomies();
 
+        $this->setCustomPostType();
+
         $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
     }
 
@@ -205,6 +207,70 @@ class Admin extends BaseController
                     ];
 
 		$this->settings->setTaxonomies( $args );
+    }
+
+    public function setCustomPostType() {
+        /**
+         * Post Type: boletines.
+         */
+    
+        $labels = [
+            "name" => __( "boletines", "storefront" ),
+            "singular_name" => __( "boletin", "storefront" ),
+            "menu_name" => __( "Boletines", "storefront" ),
+            "all_items" => __( "Todos los boletines", "storefront" ),
+            "add_new" => __( "Añadir nuevo", "storefront" ),
+            "add_new_item" => __( "Añadir nuevo boletín", "storefront" ),
+            "edit_item" => __( "Editar boletín", "storefront" ),
+            "new_item" => __( "Nuevo boletín", "storefront" ),
+            "view_item" => __( "Ver boletín", "storefront" ),
+            "view_items" => __( "Ver boletines", "storefront" ),
+            "search_items" => __( "Buscar boletín", "storefront" ),
+            "not_found" => __( "No se ha encontrado ningún boletín", "storefront" ),
+            "not_found_in_trash" => __( "No se encontro boletines en papeleras", "storefront" ),
+            "parent" => __( "boletin padre", "storefront" ),
+            "featured_image" => __( "Imagen de la boletín", "storefront" ),
+            "set_featured_image" => __( "Fijar imagen de boletín", "storefront" ),
+            "remove_featured_image" => __( "Quitar imagen", "storefront" ),
+            "use_featured_image" => __( "Usar imagen de boletin", "storefront" ),
+            "name_admin_bar" => __( "Boletín", "storefront" ),
+            "item_published" => __( "Boletin publicado", "storefront" ),
+            "item_scheduled" => __( "Boletin programado", "storefront" ),
+            "parent_item_colon" => __( "boletin padre", "storefront" ),
+        ];
+    
+        $args = [
+            "label" => __( "boletines", "storefront" ),
+            "labels" => $labels,
+            "description" => "Boletines para ofertas y descuentos",
+            "public" => true,
+            "publicly_queryable" => true,
+            "show_ui" => true,
+            "show_in_rest" => true,
+            "rest_base" => "",
+            "rest_controller_class" => "WP_REST_Posts_Controller",
+            "has_archive" => false,
+            "show_in_menu" => true,
+            "show_in_nav_menus" => true,
+            "delete_with_user" => false,
+            "exclude_from_search" => false,
+            "capability_type" => "post",
+            "map_meta_cap" => true,
+            "hierarchical" => false,
+            "rewrite" => [ "slug" => "boletin", "with_front" => true ],
+            "query_var" => true,
+            "supports" => [ "title", "thumbnail" ],
+        ];
+
+        $cpt = [
+                    [
+                        'base' => $args['rewrite']['slug'],
+                        'args' => $args
+                    ] 
+                ];
+
+        $this->settings->setCustomPostType( $cpt );
+        
     }
 
 }
