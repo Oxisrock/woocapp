@@ -69,14 +69,14 @@ class Offers extends BaseController {
         if (empty($offer)) :
             return new WP_Error( '404', 'offer no exist', '' );
         endif;
-        
+        //products in offert
         $products_offers = [];
         $products = get_field('producto_promocion', $offer->ID);
         
         if (empty($products)) :
             return new WP_Error( '404', 'its offer not have products', '' );
         endif;
-        
+
         foreach($products as $product) :
             $product_object = wc_get_product($product->ID, true);
             $products_offers[] = $this->get_product($product_object);
