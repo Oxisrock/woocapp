@@ -189,7 +189,7 @@ class SettingsApi {
         $baseController = new BaseController;
 
         // Include the ACF plugin.
-        require_once( $baseController->plugin_path . '/includes/acf/acf.php' );
+        include_once( $baseController->plugin_path . 'includes/acf/acf.php' );
    
         // Customize the url setting to fix incorrect asset URLs.
         add_filter('acf/settings/url', [$baseController,'my_acf_settings_url']);
