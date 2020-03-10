@@ -82,7 +82,7 @@ class Offers extends BaseController {
             $products_offers[] = $this->get_product($product_object);
         endforeach;
 
-        // $products_offers = json_encode($products_offers);
+        $products_offers = json_encode($products_offers);
 
         $response = new WP_REST_Response($products_offers);
 

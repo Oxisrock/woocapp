@@ -69,6 +69,9 @@ class Orders extends BaseController {
         foreach ($orders_ids as $order) {
             $orders[] = $this->woocommerce->get('orders/'.$order);
         }
+
+        $orders = json_encode($orders);
+
         $response = new WP_REST_Response($orders);
 
         $response->set_status(200);
