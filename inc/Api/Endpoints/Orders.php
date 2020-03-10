@@ -24,8 +24,7 @@ class Orders extends BaseController {
             return new WP_Error( '401', 'error login user', '' );
         endif;
 
-        $client = $this->woocommerce->get('customers/'.$user_id);
-
+        $client = $this->getClient();
         
         $line_items = json_decode($data['cart_products']);
         

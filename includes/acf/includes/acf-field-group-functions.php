@@ -52,6 +52,7 @@ function acf_get_field_group( $id = 0 ) {
 	 *
 	 * @param	array The field_group array.
 	 */
+	$field_group = apply_filters( 'acf/get_field_group', $field_group );
 	$field_group = apply_filters( 'acf/load_field_group', $field_group );
 	
 	// Store field group using aliasses to also find via key, ID and name.
@@ -221,10 +222,6 @@ function acf_validate_field_group( $field_group = array() ) {
 		'description'			=> '',
 	));
 	
-	// Convert types.
-	$field_group['ID'] = (int) $field_group['ID'];
-	$field_group['menu_order'] = (int) $field_group['menu_order'];
-	
 	// Field group is now valid.
 	$field_group['_valid'] = 1;
 	
@@ -322,6 +319,7 @@ function acf_get_field_groups( $filter = array() ) {
 		}
 	}
 	
+	
 	/**
 	 * Filters the $field_groups array.
 	 *
@@ -331,6 +329,7 @@ function acf_get_field_groups( $filter = array() ) {
 	 * @param	array $field_groups The array of field_groups.
 	 */
 	$field_groups = apply_filters( 'acf/load_field_groups', $field_groups );
+	$field_groups = apply_filters( 'acf/get_field_groups', $field_groups );
 	
 	// Filter results.
 	if( $filter ) {
@@ -519,8 +518,6 @@ function acf_update_field_group( $field_group ) {
     	'post_excerpt'	=> sanitize_title( $field_group['title'] ),
     	'post_content'	=> maybe_serialize( $_field_group ),
     	'menu_order'	=> $field_group['menu_order'],
-    	'comment_status' => 'closed',
-    	'ping_status'	=> 'closed',
 	);
 	
 	// Unhook wp_targeted_link_rel() filter from WP 5.1 corrupting serialized data.

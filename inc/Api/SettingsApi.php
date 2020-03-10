@@ -189,7 +189,7 @@ class SettingsApi {
         $baseController = new BaseController;
 
         // Include the ACF plugin.
-        include_once( $baseController->plugin_path . '/includes/acf/acf.php' );
+        include_once( $baseController->plugin_path . 'includes/acf/acf.php' );
    
         // Customize the url setting to fix incorrect asset URLs.
         add_filter('acf/settings/url', [$baseController,'my_acf_settings_url']);
@@ -200,5 +200,10 @@ class SettingsApi {
 
         add_filter('acf/settings/load_json', [$baseController,'p2c_acf_json_load_point']);
    }
+
+   public function setCurrency($currency) {
+    $currency = update_option('woocommerce_currency', $currency);
+    return get_woocommerce_currency();
+    }
     
 }

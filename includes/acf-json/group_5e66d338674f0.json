@@ -1,0 +1,92 @@
+{
+    "key": "group_5e66d338674f0",
+    "title": "Stock",
+    "fields": [
+        {
+            "key": "field_5e66d33ec5695",
+            "label": "Stock de productos segun vendedores",
+            "name": "stock_products_sellers",
+            "type": "flexible_content",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_5e66d72a4a019": {
+                    "key": "layout_5e66d72a4a019",
+                    "name": "stock_segun_vendedores",
+                    "label": "stock segun vendedores",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5e66d34cc5696",
+                            "label": "vendedor",
+                            "name": "vendedor",
+                            "type": "user",
+                            "instructions": "Añade vendedor",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "role": "",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "return_format": "array"
+                        },
+                        {
+                            "key": "field_5e66d756a50c4",
+                            "label": "cantidad",
+                            "name": "stock",
+                            "type": "number",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "min": "",
+                            "max": "",
+                            "step": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Agregar Fila",
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1583798176
+}

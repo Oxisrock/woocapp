@@ -557,16 +557,8 @@ class acf_field_checkbox extends acf_field {
 	
 	function format_value( $value, $post_id, $field ) {
 		
-		// Bail early if is empty.
-		if( acf_is_empty($value) ) {
-			return array();
-		}
-		
-		// Always convert to array of items.
-		$value = acf_array($value);
-		
-		// Return.
 		return acf_get_field_type('select')->format_value( $value, $post_id, $field );
+		
 	}
 	
 }

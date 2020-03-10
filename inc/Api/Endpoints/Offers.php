@@ -82,7 +82,7 @@ class Offers extends BaseController {
             $products_offers[] = $this->get_product($product_object);
         endforeach;
 
-        $products_offers = json_encode($products_offers);
+        // $products_offers = json_encode($products_offers);
 
         $response = new WP_REST_Response($products_offers);
 
@@ -92,7 +92,11 @@ class Offers extends BaseController {
     }
 
     public function get_product($product) {
+
         $product_categories = $product->get_category_ids();
+        $tax = [];
+        $product_id = $product->get_id();
+        $brands = $this->getBrands($product_id);
         $products = [
             'id' => $product->get_id(),
             'name' => $product->get_name(),
@@ -123,11 +127,12 @@ class Offers extends BaseController {
                'tax_status' => $product->get_tax_status(),
                 'tax_class' => $product->get_tax_class(),
             ],
-            // 'brands' => [
-            //     'name' => $term_name,
-            //     'imagen' => $imagen,
-            //     'logo' => $logo
-            // ],
+            'brands' => [
+                $brands
+                // 'name' => $term_name,
+                // 'imagen' => $imagen,
+                // 'logo' => $logo
+            ],
             'image_id' => $product->get_image_id(),
             'image_sizes' => [
                 'thumbnail' => wp_get_attachment_image_src($product->get_image_id(),'thumbnail'),
@@ -156,6 +161,23 @@ class Offers extends BaseController {
         endforeach;
 
         return $cats;
+    }
+
+    public function getBrands($product_id) {
+        $terms = get_the_terms( $product_id, 'marca' );
+        $brands = [];
+        foreach ($terms as $term) {
+            $terms_id = 'term_'.$term->term_id;
+            $term_name = $term->name;
+            $imagen = get_field('image', $terms_id);
+            $logo = get_field('logo', $terms_id);
+         $brands[] = [
+               'name' => $term_name,
+                'imagen' => $imagen,
+                'logo' => $logo
+         ];
+        }
+        return $brands;
     }
 
     public function getVariationsProducts($product) {

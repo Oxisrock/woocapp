@@ -76,6 +76,8 @@ class Brands extends BaseController {
         $logo = get_field('logo', $terms_id);
 
         $products = [];
+        $client = $this->getClient();
+        $currency = ($client->billing->country == 'CO') ? $this->setCurrency('COP') : $this->setCurrency('USD');
         // The WP_Query loop
         if ( $query->have_posts() ): while( $query->have_posts() ): $query->the_post();
                 
@@ -89,11 +91,14 @@ class Brands extends BaseController {
                     'short_description' => $product->get_short_description(),
                     'get_date_created' => $product->get_date_created(),
                     'get_date_modified' => $product->get_date_modified(),
-                    'price' => ['price' => $product->get_price(),
-                    'regular_price' => $product->get_regular_price(),
-                    'sale_price' => $product->get_sale_price(),
-                    'get_date_on_sale_from' => $product->get_date_on_sale_from(),
-                    'get_date_on_sale_to' => $product->get_date_on_sale_to(),],
+                    'price' => [
+                        'currency' => $currency,
+                        'price' => $product->get_price(),
+                        'regular_price' => $product->get_regular_price(),
+                        'sale_price' => $product->get_sale_price(),
+                        'get_date_on_sale_from' => $product->get_date_on_sale_from(),
+                        'get_date_on_sale_to' => $product->get_date_on_sale_to(),
+                    ],
                     'stock' => [
                     'manage_stock' =>  $product->get_manage_stock(),
                     'stock_quantity' =>    $product->get_stock_quantity(),
@@ -197,4 +202,5 @@ class Brands extends BaseController {
             return $variations;
         endif;
     }
+
 }

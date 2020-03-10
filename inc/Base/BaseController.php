@@ -55,7 +55,19 @@ class BaseController
         return $paths;
     }
 
+    public function setCurrency($currency) {
+        $currency = update_option('woocommerce_currency', $currency);
+        return get_woocommerce_currency();
+    }
     
+    public function getClient() {
+        
+        $user_id = get_current_user_id();
+
+        $client = $this->woocommerce->get('customers/'.$user_id);
+        
+        return $client;
+    }
 
 }
 
