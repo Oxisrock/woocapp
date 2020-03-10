@@ -56,4 +56,23 @@ class Orders extends BaseController {
     
         return $response;
     }
+
+    public function getOrdersClient() {
+        
+        $client = $this->getClient();
+        $orders = [];
+        // Get all customer orders
+        $orders_ids = wc_get_orders([
+            'customer_id' => $client->id,
+            'return' => 'ids',
+        ]);
+        foreach ($orders_ids as $order) {
+            $orders[] = $this->woocommerce->get('orders/'.$order);
+        }
+        $response = new WP_REST_Response($orders);
+
+        $response->set_status(200);
+    
+        return $response;
+    }
 }

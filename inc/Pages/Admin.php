@@ -167,6 +167,11 @@ class Admin extends BaseController
                         'callback' => [ $this->callbacks, 'woocappOrderEndpoint' ],
                     ],
                     [
+                        'route' => '/orders/',
+                        'method' => 'GET',
+                        'callback' => [ $this->callbacks, 'woocappOrderClientEndpoint'],
+                    ],
+                    [
                         'route' => '/offers/',
                         'method' => 'GET',
                         'callback' => [ $this->callbacks, 'woocappOffertsEndpoint' ],

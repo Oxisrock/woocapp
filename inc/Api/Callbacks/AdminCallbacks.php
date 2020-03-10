@@ -80,6 +80,13 @@ class AdminCallbacks extends BaseController
 		return $order->createOrder($data);
 	}
 
+	public function woocappOrderClientEndpoint() {
+		
+		$order = new Orders;
+
+		return $order->getOrdersClient();
+	}
+
 	public function woocappOffertsEndpoint() {
 		
 		$Offers = new Offers;
