@@ -11,6 +11,8 @@ use \Inc\Api\Endpoints\Orders;
 
 use \Inc\Api\Endpoints\Offers;
 
+use \Inc\Api\Endpoints\Customer;
+
 
 class AdminCallbacks extends BaseController
 {
@@ -98,5 +100,12 @@ class AdminCallbacks extends BaseController
 		$Offers = new Offers;
 
 		return $Offers->getProductOffer($request);
+	}
+
+	public function woocappCustomerEndpoint() {
+		
+		$customer = new Customer;
+
+		return $customer->getCustomer();
 	}
 }

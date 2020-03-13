@@ -148,7 +148,7 @@ class Admin extends BaseController
                     [
                         'route' => '/customer/',
                         'method' => 'GET',
-                        'callback' => [ $this->callbacks, 'woocappLoginEndpointPost' ],
+                        'callback' => [ $this->callbacks, 'woocappCustomerEndpoint' ],
                     ],
                     // Brands
                     [
@@ -181,6 +181,11 @@ class Admin extends BaseController
                         'method' => 'GET',
                         'callback' => [ $this->callbacks, 'woocappOffertsProductsEndpoint' ],
                     ],
+                    // [
+                    //     'route' => '/customer/',
+                    //     'method' => 'GET',
+                    //     'callback' => [ $this->callbacks, 'woocappCustomerEndpoint' ],
+                    // ],
                   
                 ];
 
