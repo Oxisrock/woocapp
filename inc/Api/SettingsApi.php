@@ -21,6 +21,8 @@ class SettingsApi {
     public $taxonomies = [];
 
     public $customPostType = [];
+
+    public $roles = [];
     
     public function register() {
         if (! empty($this->admin_pages)) :
@@ -41,6 +43,10 @@ class SettingsApi {
 
         if ( !empty($this->customPostType) ) :
             add_action( 'init', [$this, 'registerCustomPostType' ] );
+        endif;
+
+        if ( !empty($this->roles) ) :
+            add_action( 'init', [$this, 'registerRoles' ] );
         endif;
         
         $this->load_acf();
@@ -136,6 +142,13 @@ class SettingsApi {
 		$this->customPostType = $customPostType;
 
 		return $this;
+    }
+    
+    public function setRoles( array $roles )
+	{
+		$this->roles = $roles;
+
+		return $this;
 	}
 
     public function registerCustomFields() {
@@ -204,6 +217,12 @@ class SettingsApi {
    public function setCurrency($currency) {
     $currency = update_option('woocommerce_currency', $currency);
     return get_woocommerce_currency();
+    }
+
+    public function registerRoles() {
+        foreach ( $this->roles as $role ) :
+            add_role($role['role_id'],$role['role_name'],$role['role_capacity']);
+        endforeach;
     }
     
 }

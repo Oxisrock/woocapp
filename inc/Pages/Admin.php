@@ -8,6 +8,8 @@ use \Inc\Api\SettingsApi;
 
 use \Inc\Api\Callbacks\AdminCallbacks;
 
+use WP_Roles;
+
 class Admin extends BaseController
 {
     public $settings;
@@ -39,6 +41,8 @@ class Admin extends BaseController
         $this->setTaxonomies();
 
         $this->setCustomPostType();
+        
+        $this->setRoles();
 
         $this->settings->addPages($this->pages)->withSubPage('Dashboard')->addSubPages($this->subpages)->register();
     }
@@ -136,7 +140,6 @@ class Admin extends BaseController
 
 		$this->settings->setFields( $args );
     }
-
     public function setEndpoints() {
         $args = [
                     [
@@ -149,6 +152,16 @@ class Admin extends BaseController
                         'route' => '/customer/',
                         'method' => 'GET',
                         'callback' => [ $this->callbacks, 'woocappCustomerEndpoint' ],
+                    ],
+                    [
+                        'route' => '/customer/profile/',
+                        'method' => 'POST',
+                        'callback' => [ $this->callbacks, 'woocappUpdateCustomerEndpoint' ],
+                    ],
+                    [
+                        'route' => '/customer/shipping/',
+                        'method' => 'POST',
+                        'callback' => [ $this->callbacks, 'woocappUpdateShippingCustomerEndpoint' ],
                     ],
                     // Brands
                     [
@@ -291,6 +304,20 @@ class Admin extends BaseController
 
         $this->settings->setCustomPostType( $cpt );
         
+    }
+
+    public function setRoles() {
+        $wp_roles = new WP_Roles();
+        $adm = $wp_roles->get_role('shop_manager');
+        $args = [
+                    [
+                        'role_id' => 'seller',
+                        'role_name' => __('Seller'),
+                        'role_capacity' => $adm->capabilities
+                    ]
+                ];
+
+		$this->settings->setRoles( $args );
     }
 
 }

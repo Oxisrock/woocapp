@@ -108,4 +108,18 @@ class AdminCallbacks extends BaseController
 
 		return $customer->getCustomer();
 	}
+
+	public function woocappUpdateCustomerEndpoint($data) {
+		
+		$customer = new Customer;
+
+		return $customer->updateCustomer($data);
+	}
+	
+	public function woocappUpdateShippingCustomerEndpoint($data) {
+		
+		$customer = new Customer;
+
+		return $customer->updateShippingCustomer($data);
+	}
 }
